@@ -8,7 +8,7 @@
 1. **Clone and install the project**
 
 ```shell
-npx degit [replace...]
+npx degit git@github.com:hygraph/hygraph-nextjs-blog-starter.git
 ```
 
 2. **Provide your Hygraph project keys**
