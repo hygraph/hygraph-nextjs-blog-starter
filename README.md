@@ -1,4 +1,4 @@
-# gatsby-starter-hygraph-blog
+# hygraph-nextjs-blog-starter
 
 > A [Next.js](httsp://nextjs.org) starter for creating a basic blog with [Hygraph](https://hygraph.com)
 
@@ -31,7 +31,7 @@ HYGRAPH_TOKEN=""
 
 3. **Start building!**
 
-Install the dependencies and start the gatsby dev server:
+Install the dependencies and start the Next.js dev server:
 
 ```shell
 npm install

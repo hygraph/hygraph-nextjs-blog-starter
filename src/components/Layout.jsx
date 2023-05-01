@@ -41,7 +41,7 @@ export default ({ children }) => {
     <div className="px-6 max-w-3xl mx-auto">
       <header className="py-10 relative">
         <nav className="relative flex items-center justify-between sm:h-10 ">
-              <Link href="/" aria-label="Hygraph Gatsby Blog Starter">
+              <Link href="/" aria-label="Hygraph Next.js Blog Starter">
                 <Image
                 width={150}
                   src={HygraphLogo}
