@@ -12,7 +12,6 @@ async function getPosts () {
       query: AllPosts,
     }),
   }).then((res) => res.json());
-  console.log({ allPosts });
 
   return allPosts.data.posts
 }

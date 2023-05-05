@@ -24,7 +24,7 @@ export default function Layout({ children }) {
               className="h-10 sm:hidden"
             />
           </Link>
-          {/* <ul><NavList navItems={main.link} /></ul> */}
+          <ul><NavList navId="main" /></ul>
         </nav>
       </header>
       <main>{children}</main>
@@ -52,7 +52,7 @@ export default function Layout({ children }) {
                   Follow us
                 </h2>
                 <ul className="text-gray-600 dark:text-gray-400 font-medium">
-                  {/* {!isLoading && data && <ul><NavList navItems={social.link} /></ul>} */}
+                <ul><NavList navId="social" /></ul>
                 </ul>
               </div>
             </div>

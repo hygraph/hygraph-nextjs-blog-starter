@@ -1,6 +1,5 @@
-import { gql } from "graphql-request";
 
-const AllPages = gql`
+const AllPages = `
   query AllPages {
     pages {
       id
@@ -10,7 +9,7 @@ const AllPages = gql`
   }
 `;
 
-const SinglePage = gql`
+const SinglePage = `
   query SinglePage($slug: String!) {
     page(where: { slug: $slug }) {
       title

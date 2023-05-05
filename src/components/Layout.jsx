@@ -7,7 +7,6 @@ import HygraphMark from "../../public/svg/mark.svg";
 import NavList from "./NavList";
 
 const fetcher = async (url) => {
-  console.log(url)
     const res = await fetch(url, {
       method: "POST",
       headers: {
@@ -34,8 +33,6 @@ export default ({ children }) => {
     fetcher
   );
 
-  const { main, social } = data?.data || {}
-  console.log({data, error, isLoading})
 
   return (<>
     <div className="px-6 max-w-3xl mx-auto">

@@ -1,6 +1,5 @@
-import { gql } from "graphql-request";
 
-const AllPosts = gql`
+const AllPosts = `
   query AllPosts {
     posts(orderBy: publishedAt_DESC) {
       id
@@ -12,7 +11,7 @@ const AllPosts = gql`
   }
 `;
 
-const SinglePost = gql`
+const SinglePost = `
   query SinglePost($slug: String!) {
     post(where: { slug: $slug }) {
       createdAt
