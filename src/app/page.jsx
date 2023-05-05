@@ -1,7 +1,8 @@
 import { AllPosts } from "../queries/posts";
 import Link from "next/link";
 
-export async function getStaticProps() {
+
+async function getPosts () {
   const allPosts = await fetch(process.env.HYGRAPH_ENDPOINT, {
     method: "POST",
     headers: {
@@ -13,14 +14,11 @@ export async function getStaticProps() {
   }).then((res) => res.json());
   console.log({ allPosts });
 
-  return {
-    props: {
-      allPosts: allPosts.data.posts,
-    },
-  };
+  return allPosts.data.posts
 }
 
-export default function Home({ allPosts }) {
+export default async function Home({  }) {
+  const allPosts = await getPosts()
   return (
     <div className="divide-y divide-gray-200">
       <div className="pt-6 pb-8 space-y-2 md:space-y-5">
