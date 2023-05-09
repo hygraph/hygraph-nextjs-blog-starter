@@ -27,7 +27,7 @@ export default async function NavList({ navId }) {
         const url = navItem.externalUrl || navItem.page.slug;
         return (
           <li key={navItem.id}>
-            <Link href={url}>{navItem.displayText}</Link>
+            <Link href={`/${url}`}>{navItem.displayText}</Link>
           </li>
         );
       })}
