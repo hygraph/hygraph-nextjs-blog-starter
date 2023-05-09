@@ -1,43 +1,27 @@
 import PageHead from "@/components/PageHead";
-import { AllPages, SinglePage } from "@/queries/pages";
+import { SinglePage } from "@/queries/pages";
 import { RichText } from "@graphcms/rich-text-react-renderer";
 import Head from "next/head";
 
-export async function getStaticPaths() {
-  const allPages = await fetch(process.env.HYGRAPH_ENDPOINT, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      query: AllPages,
-    }),
-  })
-    .then((res) => res.json())
-    .then((res) => res.data.pages);
-  const paths = allPages.map((page) => ({
-    params: { slug: page.slug },
-  }));
-  return { paths, fallback: false };
-}
 
-export async function getStaticProps({ params }) {
-  const { page } = await fetch(process.env.HYGRAPH_ENDPOINT, {
+async function getPage(slug) {
+    const { page } = await fetch(process.env.HYGRAPH_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
       query: SinglePage,
-      variables: { slug: params.slug },
+      variables: { slug: slug },
     }),
   })
     .then((res) => res.json())
     .then((res) => res.data);
-  return { props: { page } };
+  return page;
 }
 
-export default function Page({ page }) {
+export default async function Page({ params }) {
+  const page = await getPage(params.slug);
   return (
     <div className="divide-y divide-gray-200">
       <Head>
