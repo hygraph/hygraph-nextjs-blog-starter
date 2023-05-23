@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["media.graphassets.com"]
+    domains: ['media.graphassets.com']
   },
   experimental: {
     workerThreads: false,

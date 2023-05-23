@@ -1,4 +1,3 @@
-
 const AllPages = `
   query AllPages {
     pages {
@@ -7,7 +6,7 @@ const AllPages = `
       title
     }
   }
-`;
+`
 
 const SinglePage = `
   query SinglePage($slug: String!) {
@@ -30,6 +29,6 @@ const SinglePage = `
       }
     }
   }
-`;
+`
 
-export { AllPages, SinglePage };
+export { AllPages, SinglePage }

@@ -17,8 +17,8 @@ query Test($navId:String!) {
   }
 }
   
-`;
+`
 
-const SingleNav = query;
+const SingleNav = query
 
-export { SingleNav };
+export { SingleNav }

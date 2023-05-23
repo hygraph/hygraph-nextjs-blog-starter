@@ -1,10 +1,10 @@
-import Image from "next/image";
-import Link from "next/link";
-import { SingleNav } from "../queries/navigations";
-import HygraphLogo from "../../public/svg/logo.svg";
-import HygraphMark from "../../public/svg/mark.svg";
-import NavList from "../components/NavList";
-import "./globals.css";
+import Image from 'next/image'
+import Link from 'next/link'
+import { SingleNav } from '../queries/navigations'
+import HygraphLogo from '../../public/svg/logo.svg'
+import HygraphMark from '../../public/svg/mark.svg'
+import NavList from '../components/NavList'
+import './globals.css'
 
 export default function Layout({ children }) {
   return (
@@ -24,7 +24,9 @@ export default function Layout({ children }) {
               className="h-10 sm:hidden"
             />
           </Link>
-          <ul><NavList navId="main" /></ul>
+          <ul>
+            <NavList navId="main" />
+          </ul>
         </nav>
       </header>
       <main>{children}</main>
@@ -52,7 +54,9 @@ export default function Layout({ children }) {
                   Follow us
                 </h2>
                 <ul className="text-gray-600 dark:text-gray-400 font-medium">
-                <ul><NavList navId="social" /></ul>
+                  <ul>
+                    <NavList navId="social" />
+                  </ul>
                 </ul>
               </div>
             </div>
@@ -60,7 +64,7 @@ export default function Layout({ children }) {
           <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
           <div className="sm:flex sm:items-center sm:justify-between">
             <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
-              © 2023{" "}
+              © 2023{' '}
               <a href="https://hygraph.com/" className="hover:underline">
                 Hygraph
               </a>
@@ -70,5 +74,5 @@ export default function Layout({ children }) {
         </div>
       </footer>
     </div>
-  );
+  )
 }

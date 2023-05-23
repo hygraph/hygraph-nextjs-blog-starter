@@ -1,27 +1,26 @@
-import PageHead from "@/components/PageHead";
-import { SinglePage } from "@/queries/pages";
-import { RichText } from "@graphcms/rich-text-react-renderer";
-import Head from "next/head";
-
+import PageHead from '@/components/PageHead'
+import { SinglePage } from '@/queries/pages'
+import { RichText } from '@graphcms/rich-text-react-renderer'
+import Head from 'next/head'
 
 async function getPage(slug) {
-    const { page } = await fetch(process.env.HYGRAPH_ENDPOINT, {
-    method: "POST",
+  const { page } = await fetch(process.env.HYGRAPH_ENDPOINT, {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({
       query: SinglePage,
-      variables: { slug: slug },
-    }),
+      variables: { slug: slug }
+    })
   })
     .then((res) => res.json())
-    .then((res) => res.data);
-  return page;
+    .then((res) => res.data)
+  return page
 }
 
 export default async function Page({ params }) {
-  const page = await getPage(params.slug);
+  const page = await getPage(params.slug)
   return (
     <div className="divide-y divide-gray-200">
       <Head>
@@ -62,5 +61,5 @@ export default async function Page({ params }) {
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,4 +1,3 @@
-
 const AllPosts = `
   query AllPosts {
     posts(orderBy: publishedAt_DESC) {
@@ -9,7 +8,7 @@ const AllPosts = `
       date
     }
   }
-`;
+`
 
 const SinglePost = `
   query SinglePost($slug: String!) {
@@ -80,6 +79,6 @@ const SinglePost = `
       }
     }
   }
-`;
+`
 
-export { AllPosts, SinglePost };
+export { AllPosts, SinglePost }

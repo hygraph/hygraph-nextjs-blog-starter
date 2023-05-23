@@ -1,22 +1,21 @@
-import { AllPosts } from "../queries/posts";
-import Link from "next/link";
+import { AllPosts } from '../queries/posts'
+import Link from 'next/link'
 
-
-async function getPosts () {
+async function getPosts() {
   const allPosts = await fetch(process.env.HYGRAPH_ENDPOINT, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      query: AllPosts,
-    }),
-  }).then((res) => res.json());
+      query: AllPosts
+    })
+  }).then((res) => res.json())
 
   return allPosts.data.posts
 }
 
-export default async function Home({  }) {
+export default async function Home({}) {
   const allPosts = await getPosts()
   return (
     <div className="divide-y divide-gray-200">
@@ -37,7 +36,13 @@ export default async function Home({  }) {
                 <dl>
                   <dt className="sr-only">Published on</dt>
                   <dd className="text-base leading-6 font-medium text-gray-500">
-                  <time dateTime={post.date}>{new Date(post.date).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})}</time>
+                    <time dateTime={post.date}>
+                      {new Date(post.date).toLocaleDateString('en-us', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                      })}
+                    </time>
                   </dd>
                 </dl>
                 <div className="space-y-5 xl:col-span-3">
@@ -68,9 +73,9 @@ export default async function Home({  }) {
                 </div>
               </article>
             </li>
-          );
+          )
         })}
       </ul>
     </div>
-  );
+  )
 }
