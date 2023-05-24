@@ -4,24 +4,6 @@ import Head from 'next/head'
 import Image from 'next/image'
 
 import { RichText } from '@graphcms/rich-text-react-renderer'
-export async function getStaticPaths() {
-  const allPosts = await fetch(process.env.HYGRAPH_ENDPOINT, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      query: AllPosts
-    })
-  })
-    .then((res) => res.json())
-    .then((res) => res.data.posts)
-
-  const paths = allPosts.map((post) => ({
-    params: { slug: post.slug }
-  }))
-  return { paths, fallback: false }
-}
 
 async function getData(slug) {
   const { post } = await fetch(process.env.HYGRAPH_ENDPOINT, {
