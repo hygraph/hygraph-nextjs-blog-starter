@@ -1,4 +1,3 @@
-import PageHead from '@/components/PageHead'
 import { SinglePage } from '@/queries/pages'
 import { RichText } from '@graphcms/rich-text-react-renderer'
 import Head from 'next/head'

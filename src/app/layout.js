@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { SingleNav } from '../queries/navigations'
 import HygraphLogo from '../../public/svg/logo.svg'
 import HygraphMark from '../../public/svg/mark.svg'
 import NavList from '../components/NavList'
