@@ -23,11 +23,14 @@ export default function Layout({ children }) {
           <Link href="/" aria-label="Hygraph Next.js Blog Starter">
             <Image
               width={150}
+              height={40}
               src={HygraphLogo}
               alt="Hygraph Logo"
               className="hidden sm:block h-10"
             />
             <Image
+            width={44}
+            height={40}
               src={HygraphMark}
               alt="Hygraph Logo"
               className="h-10 sm:hidden"
@@ -46,11 +49,14 @@ export default function Layout({ children }) {
               <Link href="/" aria-label="Hygraph Next.js Blog Starter">
                 <Image
                   width={150}
+                  height={40}
                   src={HygraphLogo}
                   alt="Hygraph Logo"
                   className="hidden sm:block h-10"
                 />
                 <Image
+                  width={44}
+                  height={40}
                   src={HygraphMark}
                   alt="Hygraph Logo"
                   className="h-10 sm:hidden"
