@@ -5,6 +5,16 @@ import HygraphMark from '../../public/svg/mark.svg'
 import NavList from '../components/NavList'
 import './globals.css'
 
+
+export const metadata = {
+  title: {
+    template: '%s | Hygraph Blog Next.js Starter',
+  },
+  openGraph: {
+    title: 'Next.js',
+    description: 'The React Framework for the Web',
+  }
+};
 export default function Layout({ children }) {
   return (
     <div className="px-6 max-w-3xl mx-auto">

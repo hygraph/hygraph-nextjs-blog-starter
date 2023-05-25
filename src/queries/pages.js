@@ -12,16 +12,14 @@ const SinglePage = `
   query SinglePage($slug: String!) {
     page(where: { slug: $slug }) {
       title
-      seo {
-        ... on Seo {
-          remoteTypeName: __typename
-          remoteId: id
-          title
-          description
-          image {
-            url
-          }
+      seoOverride {
+        title
+        image {
+          height
+          width
+          url
         }
+        description
       }
       content {
         html

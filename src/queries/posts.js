@@ -46,11 +46,9 @@ const SinglePost = `
         }
       }
       coverImage {
-        ... on Asset {
-          remoteTypeName: __typename
-          remoteId: id
-          locale
-        }
+        url
+        width
+        height
       }
       author {
         ... on Author {

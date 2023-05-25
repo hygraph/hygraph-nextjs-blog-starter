@@ -15,6 +15,10 @@ async function getPosts() {
   return allPosts.data.posts
 }
 
+export const metadata = {
+  title: 'Hygraph Next.js Blog Starter',
+}
+
 export default async function Home({}) {
   const allPosts = await getPosts()
   return (

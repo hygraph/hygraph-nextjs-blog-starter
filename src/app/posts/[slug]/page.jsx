@@ -1,8 +1,6 @@
-import { AllPosts, SinglePost } from '@/queries/posts'
+import { SinglePost } from '@/queries/posts'
 import Link from 'next/link'
-import Head from 'next/head'
 import Image from 'next/image'
-
 import { RichText } from '@graphcms/rich-text-react-renderer'
 
 async function getData(slug) {
@@ -21,34 +19,27 @@ async function getData(slug) {
   return post
 }
 
+export async function generateMetadata({ params }) {
+  const post = await getData(params.slug)
+  return {
+    title: post.title,
+    description: post.description || post.seo?.description,
+    openGraph: {
+      images: [
+        {
+          url: post.coverImage?.url,
+          width: post.coverImage?.width,
+          height: post.coverImage?.height
+        }
+      ]
+    },
+  }
+}
+
 export default async function Post({ params }) {
   const post = await getData(params.slug)
   return (
     <article>
-      <Head>
-        <meta
-          name="description"
-          content={post.description || post.seo?.description}
-        />
-        {post.seo?.image && <meta property="image" content={seo.image.url} />}
-
-        <meta property="og:title" content={post.title} />
-        <meta
-          property="og:description"
-          content={post.description || post.seo?.description}
-        />
-        {post.seo?.image && (
-          <meta property="og:image" content={seo.image.url} />
-        )}
-        <meta name="og:type" content="website" />
-
-        <meta name="twitter:site" content="@Hygraph" />
-        <meta name="twitter:title" content={post.title} />
-        <meta name="twitter:card" content="summary_large_image" />
-        {post.seo?.image && (
-          <meta name="twitter:image:src" content={seo.image.url} />
-        )}
-      </Head>
       <header className="pt-6 lg:pb-10">
         <div className="space-y-1">
           <div>
