@@ -63,7 +63,6 @@ export async function generateMetadata({ params }) {
 export default async function Post({ params }) {
   const post = await getData(params.slug)
   if (!post) {
-    console.log({ post })
     return notFound()
   }
   return (
