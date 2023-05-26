@@ -26,25 +26,6 @@ const SinglePost = `
         markdown
         text
       }
-      tags
-      createdBy {
-        ... on User {
-          remoteTypeName: __typename
-          remoteId: id
-        }
-      }
-      updatedBy {
-        ... on User {
-          remoteTypeName: __typename
-          remoteId: id
-        }
-      }
-      publishedBy {
-        ... on User {
-          remoteTypeName: __typename
-          remoteId: id
-        }
-      }
       coverImage {
         url
         width
@@ -63,12 +44,7 @@ const SinglePost = `
           }
         }
       }
-      scheduledIn {
-        ... on ScheduledOperation {
-          remoteTypeName: __typename
-          remoteId: id
-        }
-      }
+
 
     }
   }
