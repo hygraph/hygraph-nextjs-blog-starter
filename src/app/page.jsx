@@ -16,7 +16,7 @@ async function getPosts() {
 }
 
 export const metadata = {
-  title: 'Hygraph Next.js Blog Starter',
+  title: 'Hygraph Next.js Blog Starter'
 }
 
 export default async function Home({}) {

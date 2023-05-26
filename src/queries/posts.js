@@ -69,12 +69,7 @@ const SinglePost = `
           remoteId: id
         }
       }
-      seo {
-        ... on Seo {
-          remoteTypeName: __typename
-          remoteId: id
-        }
-      }
+
     }
   }
 `
