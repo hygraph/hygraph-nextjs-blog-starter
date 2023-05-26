@@ -1,7 +1,30 @@
-import { SinglePost } from '@/queries/posts'
+import { AllPosts, SinglePost } from '@/queries/posts'
 import Link from 'next/link'
 import Image from 'next/image'
+import { notFound } from 'next/navigation'
 import { RichText } from '@graphcms/rich-text-react-renderer'
+
+async function getPosts() {
+  const allPosts = await fetch(process.env.HYGRAPH_ENDPOINT, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      query: AllPosts
+    })
+  }).then((res) => res.json())
+
+  return allPosts.data.posts
+}
+
+export async function generateStaticParams() {
+  const posts = await getPosts()
+
+  return posts.map((post) => ({
+    slug: post.slug
+  }))
+}
 
 async function getData(slug) {
   const { post } = await fetch(process.env.HYGRAPH_ENDPOINT, {
@@ -21,6 +44,7 @@ async function getData(slug) {
 
 export async function generateMetadata({ params }) {
   const post = await getData(params.slug)
+  if (!post) return notFound()
   return {
     title: post.title,
     description: post.description || post.seo?.description,
@@ -32,12 +56,16 @@ export async function generateMetadata({ params }) {
           height: post.coverImage?.height
         }
       ]
-    },
+    }
   }
 }
 
 export default async function Post({ params }) {
   const post = await getData(params.slug)
+  if (!post) {
+    console.log({ post })
+    return notFound()
+  }
   return (
     <article>
       <header className="pt-6 lg:pb-10">

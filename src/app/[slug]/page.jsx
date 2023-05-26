@@ -1,5 +1,6 @@
 import { SinglePage } from '@/queries/pages'
 import { RichText } from '@graphcms/rich-text-react-renderer'
+import { notFound } from 'next/navigation'
 
 async function getPage(slug) {
   const { page } = await fetch(process.env.HYGRAPH_ENDPOINT, {
@@ -17,9 +18,10 @@ async function getPage(slug) {
   return page
 }
 
-
 export async function generateMetadata({ params }) {
   const page = await getPage(params.slug)
+  if (!page) return notFound()
+
   return {
     title: page?.seoOverride.title || page.title,
     description: page.seo?.description || page.description,
@@ -31,7 +33,7 @@ export async function generateMetadata({ params }) {
           height: page?.seoOverride?.image?.height || page.coverImage?.height
         }
       ]
-    },
+    }
   }
 }
 
