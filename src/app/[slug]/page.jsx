@@ -39,7 +39,7 @@ export async function generateMetadata({ params }) {
 
 export default async function Page({ params }) {
   const page = await getPage(params.slug)
-  if (!post) {
+  if (!page) {
     return notFound()
   }
   return (
