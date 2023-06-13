@@ -39,6 +39,9 @@ export async function generateMetadata({ params }) {
 
 export default async function Page({ params }) {
   const page = await getPage(params.slug)
+  if (!post) {
+    return notFound()
+  }
   return (
     <div className="divide-y divide-gray-200">
       <div className="pt-6 pb-8 space-y-2 md:space-y-5">
