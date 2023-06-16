@@ -1,6 +1,6 @@
-import { gql } from "graphql-request";
-
-const query = gql`
+const query = `
+query Test($navId:String!) {
+  navigation(where: {navId: $navId}) {
     id
     link {
       externalUrl
@@ -14,21 +14,11 @@ const query = gql`
     }
     navId
   
-`;
-
-const SingleNav = gql`
-query Navigation() {
-  main: navigation(where: {navId: "main"}) {
-    ${query}
-  
-  }
-  social: navigation(where: {navId: "social"}) {
-    ${query}
   }
 }
+  
+`
 
+const SingleNav = query
 
-
-`;
-
-export { SingleNav };
+export { SingleNav }

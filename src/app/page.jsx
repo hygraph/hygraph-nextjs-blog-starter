@@ -1,26 +1,26 @@
-import { AllPosts } from "../queries/posts";
-import Link from "next/link";
+import { AllPosts } from '../queries/posts'
+import Link from 'next/link'
 
-export async function getStaticProps() {
+async function getPosts() {
   const allPosts = await fetch(process.env.HYGRAPH_ENDPOINT, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      query: AllPosts,
-    }),
-  }).then((res) => res.json());
-  console.log({ allPosts });
+      query: AllPosts
+    })
+  }).then((res) => res.json())
 
-  return {
-    props: {
-      allPosts: allPosts.data.posts,
-    },
-  };
+  return allPosts.data.posts
 }
 
-export default function Home({ allPosts }) {
+export const metadata = {
+  title: 'Hygraph Next.js Blog Starter'
+}
+
+export default async function Home({}) {
+  const allPosts = await getPosts()
   return (
     <div className="divide-y divide-gray-200">
       <div className="pt-6 pb-8 space-y-2 md:space-y-5">
@@ -40,7 +40,13 @@ export default function Home({ allPosts }) {
                 <dl>
                   <dt className="sr-only">Published on</dt>
                   <dd className="text-base leading-6 font-medium text-gray-500">
-                  <time dateTime={post.date}>{new Date(post.date).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})}</time>
+                    <time dateTime={post.date}>
+                      {new Date(post.date).toLocaleDateString('en-us', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                      })}
+                    </time>
                   </dd>
                 </dl>
                 <div className="space-y-5 xl:col-span-3">
@@ -71,9 +77,9 @@ export default function Home({ allPosts }) {
                 </div>
               </article>
             </li>
-          );
+          )
         })}
       </ul>
     </div>
-  );
+  )
 }

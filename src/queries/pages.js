@@ -1,6 +1,4 @@
-import { gql } from "graphql-request";
-
-const AllPages = gql`
+const AllPages = `
   query AllPages {
     pages {
       id
@@ -8,22 +6,20 @@ const AllPages = gql`
       title
     }
   }
-`;
+`
 
-const SinglePage = gql`
+const SinglePage = `
   query SinglePage($slug: String!) {
     page(where: { slug: $slug }) {
       title
-      seo {
-        ... on Seo {
-          remoteTypeName: __typename
-          remoteId: id
-          title
-          description
-          image {
-            url
-          }
+      seoOverride {
+        title
+        image {
+          height
+          width
+          url
         }
+        description
       }
       content {
         html
@@ -31,6 +27,6 @@ const SinglePage = gql`
       }
     }
   }
-`;
+`
 
-export { AllPages, SinglePage };
+export { AllPages, SinglePage }
