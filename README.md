@@ -25,7 +25,7 @@ cd hygraph-blog
 cp .env.sample .env.local
 ```
 
-Inside of your newly created `.env` file, provide values for each variable. These variables can be found in the [project settings UI](https://hygraph.com/docs/guides/concepts/apis#working-with-apis).
+Inside of your newly created `.env` file, provide values for each variable. These variables can be found in the [project settings UI](https://hygraph.com/docs/guides/overview/api-access).
 
 ```env
 HYGRAPH_ENDPOINT=""
