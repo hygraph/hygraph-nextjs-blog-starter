@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { RichText } from '@graphcms/rich-text-react-renderer'
+import { cookies,draftMode } from 'next/headers'
 
 async function getPosts() {
   const allPosts = await fetch(process.env.HYGRAPH_ENDPOINT, {
@@ -18,16 +19,12 @@ async function getPosts() {
   return allPosts.data.posts
 }
 
-export async function generateStaticParams() {
-  const posts = await getPosts()
 
-  return posts.map((post) => ({
-    slug: post.slug
-  }))
-}
 
 async function getData(slug) {
-  const { post } = await fetch(process.env.HYGRAPH_ENDPOINT, {
+  const cookieStore = cookies()
+  const apiUrl = cookieStore.get('apiUrl')?.value
+  const { post } = await fetch((apiUrl ? apiUrl : process.env.HYGRAPH_ENDPOINT), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -43,6 +40,7 @@ async function getData(slug) {
 }
 
 export async function generateMetadata({ params }) {
+
   const post = await getData(params.slug)
   if (!post) return notFound()
   return {
@@ -61,7 +59,9 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function Post({ params }) {
+
   const post = await getData(params.slug)
+ 
   if (!post) {
     return notFound()
   }
@@ -81,30 +81,33 @@ export default async function Post({ params }) {
         style={{ gridTemplateRows: 'auto 1fr' }}
       >
         <dl className="pt-6 pb-10 lg:pt-0 lg:border-b lg:border-gray-200">
+         { post.author && (<>
           <dt className="mb-2 text-sm font-medium leading-5">Written by</dt>
           <dd>
             <ul className="space-x-8 sm:space-x-12 lg:space-x-0 lg:space-y-8">
-              <li key={post.author.remoteId} className="flex space-x-2">
+              <li key={post.author?.remoteId} className="flex space-x-2">
+                { post.author?.picture && (
                 <Image
                   className="w-10 h-10 rounded-full"
-                  src={post.author.picture.url}
-                  width={post.author.picture.width}
-                  height={post.author.picture.height}
-                  alt={post.author.name}
-                />
+                  src={post.author?.picture.url}
+                  width={post.author?.picture.width}
+                  height={post.author?.picture.height}
+                  alt={post.author?.name}
+                /> ) }
                 <dl className="flex-1 text-sm font-medium leading-5">
                   <dt className="sr-only">Name</dt>
-                  <dd className="text-gray-900">{post.author.name}</dd>
-                  {post.author.title && (
+                  <dd className="text-gray-900">{post.author?.name}</dd>
+                  {post.author?.title && (
                     <>
                       <dt className="sr-only">Title</dt>
-                      <dd className="text-gray-500">{post.author.title}</dd>
+                      <dd className="text-gray-500">{post.author?.title}</dd>
                     </>
                   )}
                 </dl>
               </li>
             </ul>
           </dd>
+          </>)}
           <div className="mt-8">
             <dt className="text-sm font-medium leading-5">Published on</dt>
             <dd className="text-base leading-6 font-medium text-gray-500">
