@@ -1,12 +1,15 @@
 import { SinglePage } from '@/queries/pages'
 import { RichText } from '@graphcms/rich-text-react-renderer'
 import { notFound } from 'next/navigation'
+import { draftMode } from 'next/headers'
 
-async function getPage(slug) {
+async function getPage(slug, preview) {
+  
   const { page } = await fetch(process.env.HYGRAPH_ENDPOINT, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'gcms-stage': preview ? 'DRAFT' : 'PUBLISHED'
     },
     body: JSON.stringify({
       query: SinglePage,
@@ -19,7 +22,7 @@ async function getPage(slug) {
 }
 
 export async function generateMetadata({ params }) {
-  const page = await getPage(params.slug)
+  const page = await getPage(params.slug, )
   if (!page) return notFound()
 
   return {
@@ -38,7 +41,8 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function Page({ params }) {
-  const page = await getPage(params.slug)
+  console.log(draftMode())
+  const page = await getPage(params.slug, draftMode().isEnabled)
   if (!page) {
     return notFound()
   }
