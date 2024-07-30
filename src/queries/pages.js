@@ -9,8 +9,8 @@ const AllPages = `
 `
 
 const SinglePage = `
-  query SinglePage($slug: String!) {
-    page(where: { slug: $slug }) {
+  query SinglePage($slug: String!, $stage: Stage!) {
+    page(where: { slug: $slug }, stage: $stage) {
       title
       seoOverride {
         title

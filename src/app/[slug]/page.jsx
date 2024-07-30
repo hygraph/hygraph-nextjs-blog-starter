@@ -3,17 +3,17 @@ import { RichText } from '@graphcms/rich-text-react-renderer'
 import { notFound } from 'next/navigation'
 import { draftMode } from 'next/headers'
 
-async function getPage(slug, preview) {
-  
+async function getPage(slug) {
+  const { isEnabled } = draftMode()
+
   const { page } = await fetch(process.env.HYGRAPH_ENDPOINT, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      'gcms-stage': preview ? 'DRAFT' : 'PUBLISHED'
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({
       query: SinglePage,
-      variables: { slug: slug }
+      variables: { slug: slug, stage: isEnabled ? 'DRAFT' : 'PUBLISHED' }
     })
   })
     .then((res) => res.json())
@@ -22,11 +22,11 @@ async function getPage(slug, preview) {
 }
 
 export async function generateMetadata({ params }) {
-  const page = await getPage(params.slug, )
+  const page = await getPage(params.slug)
   if (!page) return notFound()
 
   return {
-    title: page?.seoOverride.title || page.title,
+    title: page?.seoOverride?.title || page.title,
     description: page.seo?.description || page.description,
     openGraph: {
       images: [
@@ -42,7 +42,7 @@ export async function generateMetadata({ params }) {
 
 export default async function Page({ params }) {
   console.log(draftMode())
-  const page = await getPage(params.slug, draftMode().isEnabled)
+  const page = await getPage(params.slug)
   if (!page) {
     return notFound()
   }
