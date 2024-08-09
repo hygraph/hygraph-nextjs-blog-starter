@@ -41,7 +41,6 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function Page({ params }) {
-  console.log(draftMode())
   const page = await getPage(params.slug)
   if (!page) {
     return notFound()

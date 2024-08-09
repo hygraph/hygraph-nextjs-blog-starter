@@ -23,11 +23,10 @@ export async function GET(request) {
     }
   `
 
-  console.log('query', query)
 
 
   // Check for a slug and for a preview token
-  if (!previewToken == process.env.HYGRAPH_QUERY_SECRET || !slug || !model) {
+  if (previewToken !== process.env.HYGRAPH_QUERY_SECRET || !slug || !model) {
     return new Response('Invalid token', { status: 401 })
   }
 
@@ -48,7 +47,6 @@ export async function GET(request) {
 
   // If the data returns in undefined or in the wrong shape, return an error
   if (!data || !data.page) {
-    console.log({data, page: data.page})
     return new Response('Invalid slug', { status: 401 })
   }
 

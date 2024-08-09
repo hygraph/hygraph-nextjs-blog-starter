@@ -24,7 +24,6 @@ async function getPosts() {
 
 async function getData(slug) {
   const { isEnabled } = draftMode()
-  console.log(isEnabled ? 'DRAFT' : 'PUBLISHED')
   const { post } = await fetch((process.env.HYGRAPH_ENDPOINT), {
     method: 'POST',
     headers: {
@@ -37,7 +36,6 @@ async function getData(slug) {
   })
     .then((res) => res.json())
     .then((res) => res.data)
-    console.log({post})
   return post
 }
 
