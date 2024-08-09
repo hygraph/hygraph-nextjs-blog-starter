@@ -1,8 +1,11 @@
 import { SinglePage } from '@/queries/pages'
 import { RichText } from '@graphcms/rich-text-react-renderer'
 import { notFound } from 'next/navigation'
+import { draftMode } from 'next/headers'
 
 async function getPage(slug) {
+  const { isEnabled } = draftMode()
+
   const { page } = await fetch(process.env.HYGRAPH_ENDPOINT, {
     method: 'POST',
     headers: {
@@ -10,7 +13,7 @@ async function getPage(slug) {
     },
     body: JSON.stringify({
       query: SinglePage,
-      variables: { slug: slug }
+      variables: { slug: slug, stage: isEnabled ? 'DRAFT' : 'PUBLISHED' }
     })
   })
     .then((res) => res.json())
@@ -23,7 +26,7 @@ export async function generateMetadata({ params }) {
   if (!page) return notFound()
 
   return {
-    title: page?.seoOverride.title || page.title,
+    title: page?.seoOverride?.title || page.title,
     description: page.seo?.description || page.description,
     openGraph: {
       images: [

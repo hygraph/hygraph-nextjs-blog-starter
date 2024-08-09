@@ -6,6 +6,7 @@ import { RichText } from '@graphcms/rich-text-react-renderer'
 import { cookies,draftMode } from 'next/headers'
 
 async function getPosts() {
+
   const allPosts = await fetch(process.env.HYGRAPH_ENDPOINT, {
     method: 'POST',
     headers: {
@@ -22,16 +23,15 @@ async function getPosts() {
 
 
 async function getData(slug) {
-  const cookieStore = cookies()
-  const apiUrl = cookieStore.get('apiUrl')?.value
-  const { post } = await fetch((apiUrl ? apiUrl : process.env.HYGRAPH_ENDPOINT), {
+  const { isEnabled } = draftMode()
+  const { post } = await fetch((process.env.HYGRAPH_ENDPOINT), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
       query: SinglePost,
-      variables: { slug: slug }
+      variables: { slug: slug, stage: isEnabled ? 'DRAFT' : 'PUBLISHED' }
     })
   })
     .then((res) => res.json())
