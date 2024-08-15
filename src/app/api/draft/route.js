@@ -1,6 +1,6 @@
 import { draftMode, cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-
+import { HygraphClient } from '@/utils/client'
 
 
 export async function GET(request) {
@@ -8,6 +8,7 @@ export async function GET(request) {
   const previewToken = searchParams.get('previewToken')
   const slug = searchParams.get('slug')
   const model= searchParams.get('model')
+  const client = HygraphClient({preview: true})
 
   let modelUrl = ''
   if (model === 'page') {
@@ -23,28 +24,17 @@ export async function GET(request) {
     }
   `
 
-
+console.log(previewToken, process.env.HYGRAPH_QUERY_SECRET, slug, model)
 
   // Check for a slug and for a preview token
   if (previewToken !== process.env.HYGRAPH_QUERY_SECRET || !slug || !model) {
+
     return new Response('Invalid token', { status: 401 })
   }
 
+  const data = await client.request(query, {slug})
+
   // Get the slug from Hygraph to ensure we don't run into redirect loops
-  const res = await fetch(process.env.HYGRAPH_ENDPOINT, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      query,
-      variables: { slug }
-    })
-  })
-
-  // Return the data
-  const { data } = await res.json()
-
   // If the data returns in undefined or in the wrong shape, return an error
   if (!data || !data.page) {
     return new Response('Invalid slug', { status: 401 })

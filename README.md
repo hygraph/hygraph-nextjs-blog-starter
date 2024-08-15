@@ -41,8 +41,22 @@ npm install
 npm run dev
 ```
 
+## Setting up Live Preview
+
+Live preview runs through the API endpoint at `/api/draft`. This endpoint sets draftMode() from Next.js and allows for the change to the Hygraph Token from Published to Draft token.
+
+In the cloned Hygraph project, the Post and Page models have a sidebar widget for Live preview configured to the following URLs:
+
+```
+post: http://localhost:3000/api/draft?slug=${slug}&model=post
+page: http://localhost:3000/api/draft?slug=${slug}&model=page
+```
+
+The API Route will handle redirects and if there is a Draft token in your `.env.local` file, it will use that token to fetch the draft content.
+
 ## Features
 * App Router
 * Tailwind CSS
 * Built-in 404 page functionality
 * `generateMetadata` for SEO
+* Live Preview
