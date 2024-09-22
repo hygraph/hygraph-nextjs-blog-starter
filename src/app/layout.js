@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import HygraphLogo from '../../public/svg/logo.svg'
+import HygraphLogoWhite from '../../public/svg/logo-white.svg'
 import HygraphMark from '../../public/svg/mark.svg'
 import NavList from '../components/NavList'
 import './globals.css'
@@ -51,7 +52,7 @@ export default function Layout({ children }) {
                     <Image
                       width={150}
                       height={40}
-                      src={HygraphLogo}
+                      src={HygraphLogoWhite}
                       alt="Hygraph Logo"
                       className="hidden sm:block h-10"
                     />
@@ -80,7 +81,7 @@ export default function Layout({ children }) {
               <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
               <div className="sm:flex sm:items-center sm:justify-between">
                 <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
-                  © 2023{' '}
+                  © { new Date().getFullYear() }{' '}
                   <a href="https://hygraph.com/" className="hover:underline">
                     Hygraph
                   </a>

@@ -24,10 +24,16 @@ export default async function NavList({ navId }) {
   return (
     <>
       {navItems.map((navItem) => {
-        const url = navItem?.externalUrl ? navItem.externalUrl : `/${navItem.page.slug}`
+        const isExternal = !!navItem?.externalUrl;
+        const url = isExternal ? navItem.externalUrl : `/${navItem.page.slug}`
         return (
-          <li key={navItem.id}>
-            <Link href={`${url}`}>{navItem.displayText}</Link>
+          <li key={url}>
+            <Link 
+              href={`${url}`}
+              target={isExternal ? '_blank' : '_self'}
+            >
+              {navItem.displayText}
+            </Link>
           </li>
         )
       })}
